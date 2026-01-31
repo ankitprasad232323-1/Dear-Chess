@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Chess - Pro Mobile Edition</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+</head>
+<body>
+
+    <div id="loading-screen">
+        <h1 class="logo-text">Dear Chess</h1>
+        <div class="loader-container">
+            <div id="loader-bar"></div>
+        </div>
+        <p>Connecting to Real-time Servers...</p>
+    </div>
+
+    <div id="name-screen" class="hidden">
+        <div class="modal-box">
+            <h2 class="highlight">Welcome Player!</h2>
+            <p>Enter your name to start your journey.</p>
+            <input type="text" id="username-input" placeholder="Your Name" maxlength="15">
+            <br>
+            <button class="submit-btn" onclick="submitName()">Submit & Play</button>
+        </div>
+    </div>
+
+    <div id="main-menu" class="hidden">
+        <div class="blurred-bg"></div>
+        
+        <div class="top-nav">
+            <div class="profile-section">
+                <div class="profile-icon" onclick="toggleDropdown()">👤</div>
+                <span id="display-name-top" class="user-name-text"></span>
+                
+                <div id="profile-dropdown" class="dropdown-content hidden">
+                    <div class="search-box">
+                        <input type="text" id="user-search" placeholder="🔍 Search friends...">
+                    </div>
+                    <button onclick="alert('Followers list coming soon!')">👥 My Followers</button>
+                    <button onclick="alert('Following list coming soon!')">👤 My Following</button>
+                    <button onclick="alert('Friends list coming soon!')">🤝 My Friends</button>
+                    <button onclick="alert('Your UID: ' + myUID)">🆔 My UID</button>
+                    <hr>
+                    <button class="logout-btn" onclick="logout()">🚪 Log Out</button>
+                </div>
+            </div>
+            <div class="header-title">Dear Chess</div>
+        </div>
+
+        <div class="menu-content">
+            <div class="menu-options">
+                <button class="menu-btn" onclick="startGame('robot')">🤖 Play with Robot (Pro AI)</button>
+                <button class="menu-btn" onclick="startGame('friends')">👥 Play with Real Friend (Online)</button>
+                <button class="menu-btn" onclick="startGame('local')">🏁 Pass & Play (Local)</button>
+            </div>
+            <p class="uid-footer">Your UID: <strong id="display-uid" class="highlight"></strong></p>
+        </div>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <div class="game-layout">
+            <div id="board"></div>
+            
+            <div class="game-controls">
+                <p id="status">White's Turn</p>
+                <button class="btn-exit" onclick="location.reload()">Exit to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>
