@@ -60,6 +60,7 @@
 
         <div class="menu-content">
             <div class="menu-options">
+                <button class="menu-btn info-btn" onclick="showGuide()">📖 How to Play & Connect</button>
                 <button class="menu-btn" onclick="startGame('robot')">🤖 Play with Robot (Pro AI)</button>
                 <button class="menu-btn" onclick="startGame('friends')">👥 Play with Real Friend (Online)</button>
                 <button class="menu-btn" onclick="startGame('local')">🏁 Pass & Play (Local)</button>
@@ -90,8 +91,19 @@
     
     <script src="script.js"></script>
 
+    <div id="guide-modal" class="hidden">
+    <div class="modal-box">
+        <h3>Dear Chess Guide</h3>
+        <p>1. **Robot:** AI ke saath practice karein.</p>
+        <p>2. **Online:** Friend ka UID daalein aur connect karein.</p>
+        <p>3. **UID:** Aapka unique ID niche menu mein dikhega.</p>
+        <button onclick="closeGuide()">Got it!</button>
+    </div>
+</div>
+
 </body>
 
 </html>
+
 
 
