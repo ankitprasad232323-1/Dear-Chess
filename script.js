@@ -215,4 +215,13 @@ function closeGuide() {
     document.getElementById('guide-modal').classList.add('hidden');
 }
 
+// Search bar interaction
+document.getElementById('user-search').addEventListener('input', function(e) {
+    let searchText = e.target.value.toLowerCase();
+    console.log("Searching for: " + searchText);
+    // Future mein yahan Firebase se users filter karne ka code aayega
+    // Abhi ke liye ye bas console mein search print karega
+});
+
+
 
