@@ -192,3 +192,16 @@ function showLegalHighlights(square) {
 function removeHighlights() { 
     $('.square-55d63').removeClass('highlight-square selected-square'); 
 }
+
+// --- 8. HOW TO PLAY MODAL FUNCTIONS ---
+
+// Isse "How to Play" wala popup dikhayi dega
+function showGuide() {
+    document.getElementById('guide-modal').classList.remove('hidden');
+}
+
+// Isse "Got it!" button dabane par popup band ho jayega
+function closeGuide() {
+    document.getElementById('guide-modal').classList.add('hidden');
+}
+
