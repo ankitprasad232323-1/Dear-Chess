@@ -84,30 +84,32 @@ function startGame(mode) {
     if (mode === 'friends') {
         let friend = prompt("Friend ka UID daalein:");
         if (!friend) return location.reload();
-        gameId = [myUID, friend].sort().join("-");
-        myRole = (myUID < friend) ? 'w' : 'b';
         
+        gameId = [myUID, friend].sort().join("-");
+        // UID ke hisaab se Role pakka karein taaki dono alag color ho
+        myRole = (myUID < friend) ? 'w' : 'b'; 
+        
+        // Multiplayer Listener (Firebase)
         database.ref('games/' + gameId).on('value', snap => {
             let data = snap.val();
             if (data && data.lastMoveBy !== myUID) {
-                let m = game.move(data.move);
-                if (m) {
-                    board.position(game.fen());
-                    playMoveSound(m);
-                    updateStatus();
-                }
+                game.move(data.move);
+                board.position(game.fen());
+                updateStatus();
             }
         });
     }
     initBoard();
 }
 
-// --- 6. BOARD LOGIC & INTERACTION ---
 function initBoard() {
+    // Board ko player ke color ke hisaab se ghumana
+    let side = (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white';
+
     board = Chessboard('board', {
         draggable: true,
         position: 'start',
-        orientation: (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white',
+        orientation: side, // Isse 'b' wale ko board ulta dikhega
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
         onDrop: (s, t) => {
             if (currentMode === 'friends' && game.turn() !== myRole) return 'snapback';
@@ -116,6 +118,7 @@ function initBoard() {
             processAfterMove(move);
         }
     });
+}
 
     // Touch aur Click optimized Interaction
     $('#board').off('click').on('click', '.square-55d63', function() {
@@ -204,6 +207,19 @@ function showGuide() {
 function closeGuide() {
     document.getElementById('guide-modal').classList.add('hidden');
 }
+
+// Search Bar Interaction Logic
+document.getElementById('user-search').addEventListener('input', function(e) {
+    let searchValue = e.target.value.toLowerCase();
+    
+    // UI mein searching status dikhane ke liye
+    if (searchValue.length > 2) {
+        document.getElementById('display-name-top').innerText = "Searching: " + searchValue;
+    } else {
+        document.getElementById('display-name-top').innerText = myName;
+    }
+}
+
 
 
 
