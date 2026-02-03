@@ -104,18 +104,27 @@ function startGame(mode) {
 
 // --- 6. BOARD LOGIC & INTERACTION ---
 function initBoard() {
+    // Determine orientation: 'white' or 'black'
+    let boardOrientation = 'white';
+    if (currentMode === 'friends') {
+        boardOrientation = (myRole === 'w') ? 'white' : 'black';
+    }
+
     board = Chessboard('board', {
         draggable: true,
         position: 'start',
-        orientation: (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white',
+        orientation: boardOrientation, // Isse board sahi ghum jayega
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
         onDrop: (s, t) => {
+            // Sirf apni baari par move karne dein
             if (currentMode === 'friends' && game.turn() !== myRole) return 'snapback';
+            
             let move = game.move({ from: s, to: t, promotion: 'q' });
             if (!move) return 'snapback';
             processAfterMove(move);
         }
     });
+}
 
     // Touch aur Click optimized Interaction
     $('#board').off('click').on('click', '.square-55d63', function() {
@@ -204,6 +213,7 @@ function showGuide() {
 function closeGuide() {
     document.getElementById('guide-modal').classList.add('hidden');
 }
+
 
 
 
