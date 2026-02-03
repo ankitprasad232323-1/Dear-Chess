@@ -3,7 +3,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyCl2YEA5t02snLJCTpb-JtVRNPbPbCL4l4",
     databaseURL: "https://dear-chess-668c2-default-rtdb.firebaseio.com",
-    projectId:  "dear-chess-668c2",
+    projectId:  "dear-chess-668c2"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -225,6 +225,7 @@ document.getElementById('user-search').addEventListener('input', function(e) {
         document.getElementById('display-name-top').innerText = myName;
     }
 });
+
 
 
 
