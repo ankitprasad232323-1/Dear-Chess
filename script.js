@@ -214,6 +214,19 @@ function closeGuide() {
     document.getElementById('guide-modal').classList.add('hidden');
 }
 
+// --- 9. Search Bar Interaction Logic ---
+document.getElementById('user-search').addEventListener('input', function(e) {
+    let searchValue = e.target.value.toLowerCase();
+    
+    // UI mein searching status dikhane ke liye
+    if (searchValue.length > 2) {
+        document.getElementById('display-name-top').innerText = "Searching: " + searchValue;
+    } else {
+        document.getElementById('display-name-top').innerText = myName;
+    }
+});
+
+
 
 
 
