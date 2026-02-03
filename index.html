@@ -45,7 +45,12 @@
                 
                 <div id="profile-dropdown" class="dropdown-content hidden">
                     <div class="search-box">
-                        <input type="text" id="user-search" placeholder="🔍 Search friends...">
+                        <div class="search-container">
+    <input type="text" id="user-search" placeholder="🔍 Search Friend's UID...">
+    <div id="search-results" class="search-results-box hidden">
+        <p id="found-user-name"></p>
+        <button id="follow-btn" class="follow-btn">Follow</button>
+    </div>
                     </div>
                     <button onclick="alert('Followers list coming soon!')">👥 My Followers</button>
                     <button onclick="alert('Following list coming soon!')">👤 My Following</button>
@@ -103,6 +108,7 @@
 
 </body>
 </html>
+
 
 
 
