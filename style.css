@@ -69,6 +69,7 @@ body {
     font-size: 1rem;
     display: flex;
     align-items: center;
+    pointer-events: auto !important;
 }
 
 .dropdown-content button:hover {
@@ -198,4 +199,5 @@ hr { border: 0; border-top: 1px solid #444; margin: 8px 0; }
 
 
 .menu-btn:hover { background: #f1c40f; color: black; }
+
 
