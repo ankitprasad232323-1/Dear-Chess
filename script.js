@@ -1,9 +1,9 @@
 // --- 1. FIREBASE CONFIGURATION ---
 // Apne Firebase Console se ye details copy karke yahan paste karein
 const firebaseConfig = {
-    apiKey: "AIzaSyCl2YEA5t02snLJCTpb-JtVRNPbPbCL4l4",
-    databaseURL: "https://dear-chess-668c2-default-rtdb.firebaseio.com",
-    projectId: "dear-chess-668c2"
+    apiKey: "YOUR_API_KEY",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -84,32 +84,30 @@ function startGame(mode) {
     if (mode === 'friends') {
         let friend = prompt("Friend ka UID daalein:");
         if (!friend) return location.reload();
-        
         gameId = [myUID, friend].sort().join("-");
-        // UID ke hisaab se Role pakka karein taaki dono alag color ho
-        myRole = (myUID < friend) ? 'w' : 'b'; 
+        myRole = (myUID < friend) ? 'w' : 'b';
         
-        // Multiplayer Listener (Firebase)
         database.ref('games/' + gameId).on('value', snap => {
             let data = snap.val();
             if (data && data.lastMoveBy !== myUID) {
-                game.move(data.move);
-                board.position(game.fen());
-                updateStatus();
+                let m = game.move(data.move);
+                if (m) {
+                    board.position(game.fen());
+                    playMoveSound(m);
+                    updateStatus();
+                }
             }
         });
     }
     initBoard();
 }
 
+// --- 6. BOARD LOGIC & INTERACTION ---
 function initBoard() {
-    // Board ko player ke color ke hisaab se ghumana
-    let side = (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white';
-
     board = Chessboard('board', {
         draggable: true,
         position: 'start',
-        orientation: side, // Isse 'b' wale ko board ulta dikhega
+        orientation: (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white',
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
         onDrop: (s, t) => {
             if (currentMode === 'friends' && game.turn() !== myRole) return 'snapback';
@@ -118,7 +116,6 @@ function initBoard() {
             processAfterMove(move);
         }
     });
-}
 
     // Touch aur Click optimized Interaction
     $('#board').off('click').on('click', '.square-55d63', function() {
@@ -196,46 +193,6 @@ function removeHighlights() {
     $('.square-55d63').removeClass('highlight-square selected-square'); 
 }
 
-// --- 8. HOW TO PLAY MODAL FUNCTIONS ---
-
-// Isse "How to Play" wala popup dikhayi dega
-function showGuide() {
-    document.getElementById('guide-modal').classList.remove('hidden');
-}
-
-// Isse "Got it!" button dabane par popup band ho jayega
-function closeGuide() {
-    document.getElementById('guide-modal').classList.add('hidden');
-}
-
-// Search Bar Interaction Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('user-search');
-    
-    if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            let searchValue = e.target.value.toLowerCase();
-            
-            // UI Update: Header mein naam ki jagah search dikhayega
-            let nameDisplay = document.getElementById('display-name-top');
-            if (searchValue.length > 0) {
-                nameDisplay.innerText = "🔍 " + searchValue;
-                console.log("Searching for: " + searchValue);
-            } else {
-                nameDisplay.innerText = myName;
-            }
-        });
-
-        // Enter dabane par message dikhayega
-        searchInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                alert("Searching for Player: " + this.value);
-            }
-        });
-    } else {
-        console.error("Search bar ID 'user-search' nahi mili!");
-    }
-});
 
 
 
