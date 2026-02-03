@@ -209,16 +209,34 @@ function closeGuide() {
 }
 
 // Search Bar Interaction Logic
-document.getElementById('user-search').addEventListener('input', function(e) {
-    let searchValue = e.target.value.toLowerCase();
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('user-search');
     
-    // UI mein searching status dikhane ke liye
-    if (searchValue.length > 2) {
-        document.getElementById('display-name-top').innerText = "Searching: " + searchValue;
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            let searchValue = e.target.value.toLowerCase();
+            
+            // UI Update: Header mein naam ki jagah search dikhayega
+            let nameDisplay = document.getElementById('display-name-top');
+            if (searchValue.length > 0) {
+                nameDisplay.innerText = "🔍 " + searchValue;
+                console.log("Searching for: " + searchValue);
+            } else {
+                nameDisplay.innerText = myName;
+            }
+        });
+
+        // Enter dabane par message dikhayega
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                alert("Searching for Player: " + this.value);
+            }
+        });
     } else {
-        document.getElementById('display-name-top').innerText = myName;
+        console.error("Search bar ID 'user-search' nahi mili!");
     }
-}
+});
+
 
 
 
