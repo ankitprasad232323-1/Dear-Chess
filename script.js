@@ -205,47 +205,6 @@ function closeGuide() {
     document.getElementById('guide-modal').classList.add('hidden');
 }
 
-// --- SEARCH & FOLLOW SYSTEM ---
-const searchInput = document.getElementById('user-search');
-const resultsBox = document.getElementById('search-results');
-const foundUserName = document.getElementById('found-user-name');
-const followBtn = document.getElementById('follow-btn');
-
-let searchedUserUID = "";
-
-searchInput.addEventListener('input', function(e) {
-    searchedUserUID = e.target.value.trim();
-    
-    if (searchedUserUID.length > 5) { // UID aksar lamba hota hai
-        // Firebase mein check karein ki ye UID exist karta hai ya nahi
-        database.ref('users/' + searchedUserUID).once('value', (snapshot) => {
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                foundUserName.innerText = "Found: " + userData.name;
-                resultsBox.classList.remove('hidden');
-            } else {
-                foundUserName.innerText = "User not found!";
-                resultsBox.classList.remove('hidden');
-            }
-        });
-    } else {
-        resultsBox.classList.add('hidden');
-    }
-});
-
-// Follow Button Click Logic
-followBtn.addEventListener('click', () => {
-    if (searchedUserUID && searchedUserUID !== myUID) {
-        // Firebase mein Following list update karein
-        database.ref('users/' + myUID + '/following/' + searchedUserUID).set(true);
-        // Dusre player ke Followers list update karein
-        database.ref('users/' + searchedUserUID + '/followers/' + myUID).set(true);
-        
-        alert("You are now following " + searchedUserUID);
-        resultsBox.classList.add('hidden');
-        searchInput.value = "";
-    }
-});
 
 
 
