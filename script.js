@@ -1,9 +1,9 @@
 // --- 1. FIREBASE CONFIGURATION ---
 // Apne Firebase Console se ye details copy karke yahan paste karein
 const firebaseConfig = {
-    apiKey: "AIzaSyCl2YEA5t02snLJCTpb-JtVRNPbPbCL4l4",
-    databaseURL: "https://dear-chess-668c2-default-rtdb.firebaseio.com",
-    projectId:  "dear-chess-668c2"
+    apiKey: "YOUR_API_KEY",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -104,27 +104,18 @@ function startGame(mode) {
 
 // --- 6. BOARD LOGIC & INTERACTION ---
 function initBoard() {
-    // Determine orientation: 'white' or 'black'
-    let boardOrientation = 'white';
-    if (currentMode === 'friends') {
-        boardOrientation = (myRole === 'w') ? 'white' : 'black';
-    }
-
     board = Chessboard('board', {
         draggable: true,
         position: 'start',
-        orientation: boardOrientation, // Isse board sahi ghum jayega
+        orientation: (currentMode === 'friends' && myRole === 'b') ? 'black' : 'white',
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
         onDrop: (s, t) => {
-            // Sirf apni baari par move karne dein
             if (currentMode === 'friends' && game.turn() !== myRole) return 'snapback';
-            
             let move = game.move({ from: s, to: t, promotion: 'q' });
             if (!move) return 'snapback';
             processAfterMove(move);
         }
     });
-}
 
     // Touch aur Click optimized Interaction
     $('#board').off('click').on('click', '.square-55d63', function() {
@@ -202,17 +193,6 @@ function removeHighlights() {
     $('.square-55d63').removeClass('highlight-square selected-square'); 
 }
 
-// --- 8. HOW TO PLAY MODAL FUNCTIONS ---
-
-// Isse "How to Play" wala popup dikhayi dega
-function showGuide() {
-    document.getElementById('guide-modal').classList.remove('hidden');
-}
-
-// Isse "Got it!" button dabane par popup band ho jayega
-function closeGuide() {
-    document.getElementById('guide-modal').classList.add('hidden');
-}
 
 
 
