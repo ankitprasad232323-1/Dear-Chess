@@ -1,9 +1,9 @@
 // --- 1. FIREBASE CONFIGURATION ---
 // Apne Firebase Console se ye details copy karke yahan paste karein
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID"
+    apiKey: "AIzaSyCl2YEA5t02snLJCTpb-JtVRNPbPbCL4l4",
+    databaseURL: "https://dear-chess-668c2-default-rtdb.firebaseio.com",
+    projectId: "dear-chess-668c2"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -192,6 +192,7 @@ function showLegalHighlights(square) {
 function removeHighlights() { 
     $('.square-55d63').removeClass('highlight-square selected-square'); 
 }
+
 
 
 
