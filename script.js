@@ -147,7 +147,6 @@ function processAfterMove(move) {
     if (currentMode === 'robot' && !game.game_over()) {
         setTimeout(makeProRobotMove, 600);
     }
-}
 
 // --- 7. PRO ROBOT AI & STATUS ---
 function makeProRobotMove() {
@@ -192,6 +191,7 @@ function showLegalHighlights(square) {
 function removeHighlights() { 
     $('.square-55d63').removeClass('highlight-square selected-square'); 
 }
+
 
 
 
